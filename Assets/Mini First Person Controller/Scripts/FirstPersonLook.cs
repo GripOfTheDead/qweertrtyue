@@ -6,6 +6,15 @@ public class FirstPersonLook : MonoBehaviour
     Transform character;
     public float sensitivity = 2;
     public float smoothing = 1.5f;
+    public Vector3 positionCamera;
+    public Vector3 moveTransformCamera;
+    [SerializeField] private Camera mainCamera;
+    private RaycastHit hit;
+    private Ray ray;
+    public float _distanceHit = 2;
+
+    [SerializeField] private GameObject posohGameObject;
+    [SerializeField] private GameObject buttonE;
 
     Vector2 velocity;
     Vector2 frameVelocity;
@@ -35,5 +44,24 @@ public class FirstPersonLook : MonoBehaviour
         // Rotate camera up-down and controller left-right from velocity.
         transform.localRotation = Quaternion.AngleAxis(-velocity.y, Vector3.right);
         character.localRotation = Quaternion.AngleAxis(velocity.x, Vector3.up);
+        positionCamera = mainCamera.transform.position;
+        moveTransformCamera = mainCamera.transform.forward;
+        if (Input.GetKeyUp(KeyCode.E))
+        {
+            if (Physics.Raycast(positionCamera, moveTransformCamera, out hit, _distanceHit))
+            {
+                if (hit.collider.gameObject.GetComponent<Posoh>() != null)
+                {
+                    Destroy(hit.transform.gameObject);
+                    posohGameObject.SetActive(true);
+                    buttonE.SetActive(true);
+                }
+            }
+        }
+        if (Physics.Raycast(positionCamera, moveTransformCamera, out hit, _distanceHit))
+        {
+            if (hit.collider.gameObject.GetComponent<Posoh>() != null) buttonE.SetActive(true);
+            else buttonE.SetActive(false);
+        }
     }
 }
