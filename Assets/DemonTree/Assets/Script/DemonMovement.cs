@@ -14,7 +14,8 @@ public class DemonMovement : MonoBehaviour {
 
 
     void Start () {
-		anim = GetComponent<Animator> ();
+		playerTransform = GameObject.FindGameObjectWithTag("Player");
+        anim = GetComponent<Animator> ();
 		hIdles = Animator.StringToHash("Idles");
 		hAngry = Animator.StringToHash("Angry");
 		hAttack = Animator.StringToHash("Attack");

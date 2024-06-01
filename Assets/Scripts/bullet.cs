@@ -16,7 +16,7 @@ public class Shoot : MonoBehaviour
         {
             other.GetComponent<EnemyScript>().TakeDamage(damageAmount);
             Destroy(transform.gameObject);
-
         }
+        else Destroy(transform.gameObject);
     }
 }

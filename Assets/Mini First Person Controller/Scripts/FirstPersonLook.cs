@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using TMPro;
+using UnityEngine;
 
 public class FirstPersonLook : MonoBehaviour
 {
@@ -12,12 +13,17 @@ public class FirstPersonLook : MonoBehaviour
     private RaycastHit hit;
     private Ray ray;
     public float _distanceHit = 2;
-
     [SerializeField] private GameObject posohGameObject;
     [SerializeField] private GameObject buttonE;
-
     Vector2 velocity;
     Vector2 frameVelocity;
+    public GameObject _isFireGameObject;
+    public GameObject _isWinterGameObject;
+
+    [SerializeField] private NPCChallenge _challenge;
+    [SerializeField] private TMP_Text valueTreeText;
+    public int valueTree;
+
 
 
     void Reset()
@@ -34,6 +40,7 @@ public class FirstPersonLook : MonoBehaviour
 
     void Update()
     {
+        valueTreeText.text = "x " + valueTree.ToString();
         // Get smooth velocity.
         Vector2 mouseDelta = new Vector2(Input.GetAxisRaw("Mouse X"), Input.GetAxisRaw("Mouse Y"));
         Vector2 rawFrameVelocity = Vector2.Scale(mouseDelta, Vector2.one * sensitivity);
@@ -48,13 +55,35 @@ public class FirstPersonLook : MonoBehaviour
         moveTransformCamera = mainCamera.transform.forward;
         if (Input.GetKeyUp(KeyCode.E))
         {
-            if (Physics.Raycast(positionCamera, moveTransformCamera, out hit, _distanceHit))
+            if (Physics.Raycast(positionCamera, moveTransformCamera, out hit, _distanceHit) || Physics.Raycast(ray, out hit, _distanceHit))
             {
                 if (hit.collider.gameObject.GetComponent<Posoh>() != null)
                 {
-                    Destroy(hit.transform.gameObject);
-                    posohGameObject.SetActive(true);
-                    buttonE.SetActive(true);
+                    if (hit.collider.gameObject.GetComponent<Posoh>().number == 0)
+                    {
+                        _isFireGameObject.SetActive(true);
+                        IdPosoh._isFire = true;
+                    }
+                    else
+                    {
+                        _isWinterGameObject.SetActive(true);
+                        IdPosoh._isWinter = true;
+                    }
+                    Destroy(hit.collider.gameObject);
+                }
+                if (hit.collider.gameObject.GetComponent<TreeKvest>() != null)
+                {
+                    if (_challenge)
+                    {
+                        if (_challenge._isKvest)
+                        {
+                            if (valueTree <= 3)
+                            {
+                                valueTree++;
+                                Destroy(hit.collider.gameObject);
+                            }
+                        }
+                    }
                 }
             }
         }

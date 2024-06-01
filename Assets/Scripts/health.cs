@@ -7,17 +7,13 @@ using UnityEngine.SceneManagement;
 
 public class health : MonoBehaviour
 {
-    private int HP = 200;
+    private float HP = 200;
     public Slider healthBar;
-    
-    
-
     private void Update()
     {
+        HP += 5 * Time.deltaTime;
         healthBar.value = HP;
     }
-
-
     public void TakeDamage(int damageAmount)
     {
         HP -= damageAmount;

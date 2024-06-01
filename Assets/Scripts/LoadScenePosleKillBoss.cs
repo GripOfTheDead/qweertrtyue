@@ -18,7 +18,7 @@ public class LoadScenePosleKillBoss : MonoBehaviour
     {
         if (healthBAr.value <= 0)
         {
-            SceneManager.LoadScene("EndGame");
+            SceneManager.LoadScene("RattligForest");
             
         }
     }

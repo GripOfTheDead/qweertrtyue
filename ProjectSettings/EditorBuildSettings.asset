@@ -20,5 +20,8 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/EndGame.unity
     guid: d84c5f86e7d913a4794966232d30c50e
+  - enabled: 1
+    path: Assets/Scenes/RattligForest.unity
+    guid: 7584f2b6a9508224f9b5c95518b4bb39
   m_configObjects: {}
   m_UseUCBPForAssetBundles: 0
