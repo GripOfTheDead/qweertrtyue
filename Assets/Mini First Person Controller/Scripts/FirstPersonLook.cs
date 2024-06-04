@@ -89,7 +89,7 @@ public class FirstPersonLook : MonoBehaviour
         }
         if (Physics.Raycast(positionCamera, moveTransformCamera, out hit, _distanceHit))
         {
-            if (hit.collider.gameObject.GetComponent<Posoh>() != null) buttonE.SetActive(true);
+            if (hit.collider.gameObject.GetComponent<Posoh>() != null || hit.collider.gameObject.GetComponent<TreeKvest>() != null) buttonE.SetActive(true);
             else buttonE.SetActive(false);
         }
     }
